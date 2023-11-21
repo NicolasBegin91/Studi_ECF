@@ -1,0 +1,20 @@
+{{ form_start(form, {'method': 'POST', 'attr': {'novalidate': 'novalidate' }} ) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['username'],
+                'class' : 'form_sub_input',
+                'maxLength' : "255"
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['note'],
+                'class' : 'form_sub_input'
+            }) }}
+            
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['content'],
+                'class' : 'form_sub_input',
+                'maxLength' : "255"
+            }) }}
+
+{# form_end dans le fichier _edit #}

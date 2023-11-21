@@ -1,0 +1,141 @@
+@media screen and (min-width: 900px) {
+    .mainDiv {
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form_container {
+        min-width: 600px;
+        max-height: 100%;
+    }
+
+    .form_sub_div {
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+    }
+
+    .form_sub_label {
+        width: 29%;
+    }
+
+    .form_sub_input {
+        width: 70%;
+    }
+
+    .form_buttons {
+        margin: auto;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .form_btn {
+        height: 50px;
+        width: 100%;
+    }
+
+    .form_image {
+        width: 70%;
+    }
+
+    form label {
+        width: 29%;
+    }
+
+    form input {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .mainDiv {
+        overflow: auto;
+        display: grid;
+        justify-content: center;
+    }
+
+    .form_container {
+        margin: 20px;
+    }
+
+    .form_sub_div {
+        width: 100%;
+        vertical-align: middle;
+    }
+
+    .form_sub_label {
+        width: 100%;
+    }
+
+    .form_sub_input {
+        width: 100%;
+    }
+
+    .form_buttons {
+        margin: auto;
+        width: 100%;
+        display: grid;
+    }
+
+    .form_btn {
+        height: 50px;
+        width: 100%;
+    }
+
+    .save_btn {
+        margin-bottom: 15px;
+    }
+
+    .form_image {
+        width: 100%;
+    }
+
+    form label {
+        width: 100%;
+    }
+
+    form input {
+        width: 100%;
+    }
+}
+
+.form_container {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #F9F9FA;
+    color: #413C49;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-bottom: 0px;
+    display: inline-block;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.form_img {
+    max-height: 160px;
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error {
+    color: red;
+}
+
+.has-error ul {
+    color: red;
+    list-style-type: none;
+    padding-left: 0;
+    padding-top: 5px;
+    font-style: italic;
+}
+
+.btn-lg {
+    color: #fff;
+    margin: auto;
+    margin-top: 30px;
+}

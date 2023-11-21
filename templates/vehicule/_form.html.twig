@@ -1,0 +1,47 @@
+{{ form_start(form, {'method': 'POST', 'attr': {'novalidate': 'novalidate' }} ) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['model'],
+                'class' : 'form_sub_input',
+                'required' : true,
+                'maxLength' : "25"
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['registrationNumber'],
+                'class' : 'form_sub_input',
+                'maxLength' : "25"
+            }) }}
+            
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['year'],
+                'class' : 'form_sub_input',
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['mileage'],
+                'class' : 'form_sub_input',
+            }) }}
+            
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['price'],
+                'class' : 'form_sub_input',
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['pictureName'],
+                'hidden' : true
+            }) }}
+            
+    {{ include('helpers/form/_group.html.twig', {
+                'class' : 'form_image',
+                'field': form['image']
+            }) }}
+
+    {% if data.pictureName %}
+        <div class="form-group">
+            <img class="form_img" src="/uploads/vehicules/{{ data.pictureName }}" atl="art image"></img>
+        </div>
+    {% endif %}
+
+{# form_end dans le fichier _edit #}

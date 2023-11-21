@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos avis{% endblock %}
+
+{% block body %}
+
+        <div class="container mt-3">
+        <h1 class="text-center mb-3">Nos avis</h1>
+        {% set moyenne = 0 %}
+        {% set count = 0 %}
+        {% for avis in avisList %}
+                        {% if avis.isValidated is defined and avis.isValidated %}
+            {% set moyenne = moyenne + avis.note %}
+            {% set count = count + 1%}
+                        {% endif %}
+        {% endfor %}
+        {% set note = moyenne / count %}
+            <h5 class="text-center mb-4">Note moyenne : {{ note|number_format(2) }}</h5>
+            <div class="d-flex justify-content-center">
+                <button onclick="location.href='{{ path('app_avis_new') }}'" class="btn mb-4 ">{{ 'Avis_Create_New'|trans }}</button>
+            </div>
+
+            <div class="row">
+            {% for avis in avisList %}
+                {% if (avis.isValidated is defined and avis.isValidated) or app.user %}
+                <div class="col-12 col-md-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="card-title text-center">{{ avis.username }}</h3>
+                            <p class="text-center bold_font">Note : {{ avis.note }}</p>
+                            <hr>
+                            <p class="mb-0">{{ avis.content }}</p>
+                            {# Bouton réservé à l'admin #}
+                            {% if app.user %} 
+                                <hr>
+                                {% if avis.isValidated is defined and avis.isValidated %}
+                                <div class="d-flex justify-content-center">
+                                    <button onclick="location.href='{{ path('app_avis_remove', {'id': avis.id}) }}'" class="bg-danger btn">{{ 'Remove'|trans }}</button>
+                                </div>
+                                {% else %}
+                                <div class="d-flex justify-content-center">
+                                    <button onclick="location.href='{{ path('app_avis_validate', {'id': avis.id}) }}'" class="bg-success btn">{{ 'Validate'|trans }}</button>
+                                </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}      
+            </div>    
+
+        </div>    
+
+{% endblock %}

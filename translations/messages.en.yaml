@@ -1,0 +1,49 @@
+# Formulaire utilisateur
+User_Form_Email : Email de l'employé
+User_Form_Username : Nom et prénom
+User_Form_Password : Mot de passe
+User_Form_BirthDate : Date de naissance
+User_Form_ImageName : Photo
+User_Form_Image_Button : Photo
+User_Form_Role : Rôle
+User_Create_New : Créer un nouvel employé
+
+# Formulaire service
+Service_Form_Name : Nom du service
+Service_Form_Desc : Description
+Service_Form_Price : Prix (euros)
+Service_Form_Time : Durée (minutes)
+Service_Form_ImageName : Photo
+Service_Form_Image_Button : Photo
+Service_Create_New : Créer un nouveau service
+
+# Formulaire vehicule
+Vehicule_Form_Model : Modèle
+Vehicule_Form_Year : Année
+Vehicule_Form_Price : Prix
+Vehicule_Form_Registration : Immatriculation
+Vehicule_Form_Mileage : Kilométrage
+Vehicule_Form_ImageName : Photo
+Vehicule_Form_Image_Button : Photo
+Vehicule_Create_New : Ajouter un nouveau véhicule
+
+# Formulaire avis
+Avis_Form_Username : Votre nom
+Avis_Form_Content : Message
+Avis_Form_Note : Note
+Avis_Create_New : Ajouter un avis
+
+# Communs
+Validate : Valider
+Remove : Retirer
+Send : Envoyer
+Add : Ajouter
+Save : Sauvegarder
+Delete : Supprimer
+Edit : Modifier
+Back : Retour
+User : Utilisateur
+Admin : Administrateur
+ContactUs : Nous contacter
+Form_Error : Le formulaire contient des erreurs. Vérifiez les différentes rubriques.
+Invalid credentials. : Votre email ou votre mot de passe est incorrect.

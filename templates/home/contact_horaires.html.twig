@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/form.css">
+{% endblock %}
+
+{% block content %}
+<div class="pt-3 d-block text-center align-items-center justify-content-center">
+<h2>Horaires & Contact</h2>
+<p id="day1">Lundi : 8h-12h / 14h-19h</p>
+<p id="day2">Mardi : 8h-12h / 14h-19h</p>
+<p id="day3">Mercredi : 8h-12h30h / 13h30-19h</p>
+<p id="day4">Jeudi : 8h-12h / 14h-19h</p>
+<p id="day5">Vendredi : 8h-12h / 14h-19h</p>
+<p id="day6">Samedi : 8h-20h Non stop</p>
+<p id="day0">Dimanche : Fermé</p>
+<p><a href="tel:04.67.04.67.04">Nous téléphoner - 04.67.04.67.04</a></p>
+<p><a href="mailto:garage.parrot@studi.ecf.fr">Envoyer un email - garage.parrot@studi.ecf.fr</a></p>
+
+{% if vehicule is not defined %} 
+{% set vehicule = null %}
+{% endif %}
+
+<p id="contactForm">{{ include('home/_contact_form.html.twig', {
+    'vehicule' : vehicule
+}) }}</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let element = document.getElementById("day" + new Date().getDay());
+    element.classList.add("bold_font");
+</script>
+{% endblock %}

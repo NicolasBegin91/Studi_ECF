@@ -1,0 +1,43 @@
+{{ form_start(form, {'method': 'POST', 'attr': {'novalidate': 'novalidate' }} ) }}
+
+{{ include('helpers/form/_group.html.twig', {
+                'field': form['name'],
+                'class' : 'form_sub_input',
+                'maxLength' : "25"
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['description'],
+                'class' : 'form_sub_input',
+                'maxLength' : "255"
+            }) }}
+            
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['time'],
+                'class' : 'form_sub_input',
+                'maxLength' : "3"
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['price'],
+                'class' : 'form_sub_input',
+                'maxLength' : "5"
+            }) }}
+
+    {% if data.pictureName %}
+        <div class="form-group">
+            <img class="form_img" src="/uploads/services/{{ data.pictureName }}" atl="art image"></img>
+        </div>
+    {% endif %}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['pictureName'],
+                'hidden' : true
+            }) }}
+            
+    {{ include('helpers/form/_group.html.twig', {
+                'class' : 'form_image',
+                'field': form['image']
+            }) }}
+
+{# form_end dans le fichier _edit #}

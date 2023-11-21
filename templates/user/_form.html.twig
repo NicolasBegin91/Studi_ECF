@@ -1,0 +1,66 @@
+{{ form_start(form, {'method': 'POST', 'attr': {'novalidate': 'novalidate' }} ) }}
+
+    {% if mode == 'new' %}
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['email'],
+                'disabled' : false,
+                'class' : 'form_sub_input',
+                'maxLength' : "255"
+            }) }}
+    {% else %}
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['email'],
+                'disabled' : true,
+                'class' : 'form_sub_input',
+                'maxLength' : "255"
+            }) }}
+    {% endif %}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['username'],
+                'class' : 'form_sub_input',
+                'maxLength' : "25"
+            }) }}
+            
+    {% if mode == 'new' %}
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['plainPassword'],
+                'hidden' : false,
+                'class' : 'form_sub_input',
+                'maxLength' : "25"
+            }) }}
+    {% endif %}
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['password'],
+                'hidden' : true
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['roles'],
+                'class' : 'form_sub_input'
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['birthDate'],
+                'class' : 'd-inline-flex',
+                'class' : 'form_sub_input',
+                'hidden' : false
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'class' : 'form_image',
+                'field': form['image']
+            }) }}
+
+    {{ include('helpers/form/_group.html.twig', {
+                'field': form['pictureName'],
+                'hidden' : true
+            }) }}
+
+    {% if data.pictureName %}
+        <div class="form-group">
+            <img class="form_img" src="/uploads/users/{{ data.pictureName }}" atl="art image"></img>
+        </div>
+    {% endif %}
+
+{# form_end dans le fichier _edit #}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos employés{% endblock %}
+
+{% block body %}
+        <div class="container mt-3">
+            <h1 class="text-center mb-3">Vos employés</h1>
+
+{# Désactivation temporaire #}
+            {# {% if app.user and app.user.roles and 'ROLE_ADMIN' in app.user.roles %}      #}
+            <div class="d-flex justify-content-center">
+                <button onclick="location.href='{{ path('app_user_new') }}'" class="btn mb-4 ">{{ 'User_Create_New'|trans }}</button>
+            </div>
+            {# {% endif %} #}
+
+            <div class="row">
+            {% for user in users %}
+                <div class="col-6 col-md-3">
+                    <div class="card mb-3">
+                        <img src="/uploads/users/{{ user.pictureName }}" class="card-img-top-user" alt="Photo de l'employé">
+                        <div class="card-body">
+                            <h3 class="card-title text-center">{{ user.username }}</h5>
+                            <hr>
+                            <p class="">{{ user.email }}</p>
+                            <p class="">{{ 'ROLE_ADMIN' in user.roles ? 'Administrateur' : 'Employé' }}</p>
+                            <p class="">{{ user.birthDate ? user.birthDate|date('d-M-Y') : 'Date --' }}</p>
+                            {# Bouton réservé à l'admin #}
+                            {% if app.user and app.user.roles and 'ROLE_ADMIN' in app.user.roles %} 
+                            <hr>
+                            <div class="d-flex justify-content-center">
+                                <button onclick="location.href='{{ path('app_user_edit', {'id': user.id}) }}'" class="btn">{{ 'Edit'|trans }}</button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}  
+            </div>
+
+        </div>
+{% endblock %}

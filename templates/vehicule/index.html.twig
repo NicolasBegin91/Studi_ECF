@@ -1,0 +1,235 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vehicule index{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h1 class="text-center mb-3">Nos Véhicules</h1>
+
+        {% if app.user %}
+        <div class="d-flex justify-content-center">
+            <button onclick="location.href='{{ path('app_vehicule_new') }}'" class="btn mb-4 ">{{ 'Vehicule_Create_New'|trans }}</button>
+        </div>
+        {% endif %}
+
+        {% set minDistance = 1000000 %}
+        {% set maxDistance = 0 %}
+
+        {% set minPrice = 1000000 %}
+        {% set maxPrice = 0 %}
+
+        {% set minYear = 1000000 %}
+        {% set maxYear = 0 %}
+
+        {% for vehicule in vehicules %}
+            {% if vehicule.mileage < minDistance %}
+            {% set minDistance = vehicule.mileage %}
+            {% endif %}
+            
+            {% if vehicule.mileage > maxDistance %}
+            {% set maxDistance = vehicule.mileage %}
+            {% endif %}
+            
+            {% if vehicule.price < minPrice %}
+            {% set minPrice = vehicule.price %}
+            {% endif %}
+            
+            {% if vehicule.price > maxPrice %}
+            {% set maxPrice = vehicule.price %}
+            {% endif %}
+            
+            {% if vehicule.year < minYear %}
+            {% set minYear = vehicule.year %}
+            {% endif %}
+            
+            {% if vehicule.year > maxYear %}
+            {% set maxYear = vehicule.year %}
+            {% endif %}
+        {% endfor %}
+        <div>
+            <div class="range">
+                <div class="range-slider">
+                    <span class="range-selected range-selected-distance"></span>
+                </div>
+                <div class="range-input range-input-distance">
+                    <input type="range" class="min" min="{{ minDistance }}" max="{{ maxDistance }}" value="{{ minDistance }}" step="1">
+                    <input type="range" class="max" min="{{ minDistance }}" max="{{ maxDistance }}" value="{{ maxDistance }}" step="1">
+                </div>
+                <div class="range-price range-price-distance">     
+                    <label>Distance</label>
+                    <label class="label">{{ minDistance }}</label>
+                    <label> - </label>
+                    <label class="label">{{ maxDistance }}</label> 
+                </div>
+            </div> 
+            
+            <div class="range">
+                <div class="range-slider">
+                    <span class="range-selected range-selected-price"></span>
+                </div>
+                <div class="range-input range-input-price">
+                    <input type="range" class="min" min="{{ minPrice }}" max="{{ maxPrice }}" value="{{ minPrice }}" step="1">
+                    <input type="range" class="max" min="{{ minPrice }}" max="{{ maxPrice }}" value="{{ maxPrice }}" step="1">
+                </div>
+                <div class="range-price range-price-price">     
+                    <label>price</label>
+                    <label class="label">{{ minPrice }}</label>
+                    <label> - </label>
+                    <label class="label">{{ maxPrice }}</label> 
+                </div>
+            </div> 
+            
+            <div class="range">
+                <div class="range-slider">
+                    <span class="range-selected range-selected-year"></span>
+                </div>
+                <div class="range-input range-input-year">
+                    <input type="range" class="min" min="{{ minYear }}" max="{{ maxYear }}" value="{{ minYear }}" step="1">
+                    <input type="range" class="max" min="{{ minYear }}" max="{{ maxYear }}" value="{{ maxYear }}" step="1">
+                </div>
+                <div class="range-price range-price-year">     
+                    <label>year</label>
+                    <label class="label">{{ minYear }}</label>
+                    <label> - </label>
+                    <label class="label">{{ maxYear }}</label> 
+                </div>
+            </div> 
+        </div>
+
+        <div class="row">
+            {% for vehicule in vehicules %}
+                <div data-id="{{ vehicule.id }}" data-distance="{{ vehicule.mileage }}" data-price ="{{ vehicule.price }}" data-year="{{ vehicule.year }}" id="vehicule_{{vehicule.id}}" class="col-12 col-md-4 vehiculeCard">
+                    <div class="card mb-3">
+                        <img src="/uploads/vehicules/{{ vehicule.pictureName }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ vehicule.model }}</h5>
+                            <p class="card-sub-text">Immtriculation : {{ vehicule.registrationNumber }}</p>
+                            <p class="card-sub-text">Année : {{ vehicule.year }}</p>
+                            <p class="card-sub-text">Distance : {{ vehicule.mileage }} Km</p>
+                            <hr>
+                            <p class="card-sub-text bold_font">Prix : {{ vehicule.price }} €</p>
+                            {# Bouton réservé à l'admin #}
+                            <hr>
+                            <div class="d-flex justify-content-around">
+                            {% if app.user %} 
+                                <button onclick="location.href='{{ path('app_vehicule_edit', {'id': vehicule.id}) }}'" class="btn">{{ 'Edit'|trans }}</button>
+                            {% endif %}
+                                <button onclick="location.href='{{ path('app_contact_id', {'id': vehicule.id}) ~ '#contactForm' }}'" class="btn">{{ 'ContactUs'|trans }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}          
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+$(document).ready(function(){
+    
+let rangeMinDistance = 1000;
+const rangeDistanceSelected = $( ".range-selected-distance" )[0];
+const rangeInputDistance = $(".range-input-distance input");
+const rangePriceDistance = $(".range-price-distance .label");
+
+rangeInputDistance.each((index) => {
+    rangeInputDistance[index].addEventListener("input", (e) => {
+    updateSliders(rangeInputDistance, rangePriceDistance, rangeDistanceSelected, rangeMinDistance, true, e);
+  });
+});
+
+let rangeMinPrice = 100;
+const rangePriceSelected = $( ".range-selected-price" )[0];
+const rangeInputPrice = $(".range-input-price input");
+const rangePricePrice = $(".range-price-price .label");
+
+rangeInputPrice.each((index) => {
+    rangeInputPrice[index].addEventListener("input", (e) => {
+    updateSliders(rangeInputPrice, rangePricePrice, rangePriceSelected, rangeMinPrice, true, e);
+  });
+});
+
+let rangeMinYear = 1;
+const rangeYearSelected = $( ".range-selected-year" )[0];
+const rangeInputYear = $(".range-input-year input");
+const rangePriceYear = $(".range-price-year .label");
+
+rangeInputYear.each((index) => {
+    rangeInputYear[index].addEventListener("input", (e) => {
+    updateSliders(rangeInputYear, rangePriceYear, rangeYearSelected, rangeMinYear, true, e);
+  });
+});
+
+const vehicules = $(".vehiculeCard");
+
+function updateSliders(rangeInput, rangePrice, rangeSelected, rangeMin, update, e){
+    let minRange = parseInt(rangeInput[0].value);
+    let maxRange = parseInt(rangeInput[1].value);
+    if (e && maxRange - minRange < rangeMin) {     
+      if (e.target.className === "min") {
+        rangeInput[0].value = maxRange - rangeMin;        
+      } else {
+        rangeInput[1].value = minRange + rangeMin;        
+      }
+    } else {
+      rangePrice[0].textContent = minRange;
+      rangePrice[1].textContent = maxRange;
+      rangeSelected.style.left = (minRange / rangeInput[0].max) * 100 + "%";
+      rangeSelected.style.right = 100 - (maxRange / rangeInput[1].max) * 100 + "%";
+    }
+
+    if(update)
+        updateVehicules();
+}
+
+function updateVehicules(){
+    console.log(getMinDistance(), getMaxDistance());
+    console.log(getMinPrice(), getMaxPrice());
+    console.log(getMinYear(), getMaxYear());
+    vehicules.each(index => {
+        let vehicule = vehicules[index]
+        let l = '#vehicule_' + vehicule.dataset.id;
+        let vehiculeDiv = $(l);
+        vehiculeDiv.hide();
+        let distance = parseInt(vehicule.dataset.distance);
+        let price = parseInt(vehicule.dataset.price);
+        let year = parseInt(vehicule.dataset.year);
+        if(distance >= getMinDistance() && distance <= getMaxDistance()
+            && price >= getMinPrice() && price <= getMaxPrice()
+            && year >= getMinYear() && year <= getMaxYear()){
+            vehiculeDiv.show();
+        }
+    });
+}
+
+function getMinDistance(){
+    return rangeInputDistance[0].value;
+}
+
+function getMaxDistance(){
+    return rangeInputDistance[1].value;
+}
+
+function getMinPrice(){
+    return rangeInputPrice[0].value;
+}
+
+function getMaxPrice(){
+    return rangeInputPrice[1].value;
+}
+
+function getMinYear(){
+    return rangeInputYear[0].value;
+}
+
+function getMaxYear(){
+    return rangeInputYear[1].value;
+}
+
+});
+</script>
+{% endblock %}

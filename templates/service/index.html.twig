@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos services{% endblock %}
+
+{% block body %}
+    <div class="container mt-3">
+        <h1 class="text-center mb-3">Nos services</h1>
+
+        {% if app.user and app.user.roles and 'ROLE_ADMIN' in app.user.roles %}
+        <div class="d-flex justify-content-center">
+            <button onclick="location.href='{{ path('app_service_new') }}'" class="btn mb-4 ">{{ 'Service_Create_New'|trans }}</button>
+        </div>
+        {% endif %}
+
+        <div class="row">
+            {% for service in services %}
+                <div class="col-12 col-md-4">
+                    <div class="card mb-3">
+                        <img src="/uploads/services/{{ service.pictureName }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h3 class="card-title text-center">{{ service.name }}</h5>
+                            <hr>
+                            <p class="card-text">{{ service.description }}</p>
+                            <p class="card-sub-text">Prix du service : {{ service.price }}€</p>
+                            <p class="card-sub-text mb-0">Durée moyenne : {{ service.time }} minutes</p>
+                            {# Bouton réservé à l'admin #}
+                            {% if app.user and app.user.roles and 'ROLE_ADMIN' in app.user.roles %} 
+                            <hr>
+                            <div class="d-flex justify-content-center">
+                                <button onclick="location.href='{{ path('app_service_edit', {'id': service.id}) }}'" class="btn">{{ 'Edit'|trans }}</button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}          
+        </div>
+    </div>
+
+{% endblock %}
