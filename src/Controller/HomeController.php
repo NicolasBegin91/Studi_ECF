@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +19,15 @@ class HomeController extends AbstractController
      * @return  Response
      */
     #[Route('/homepage', name: 'app_index')]
-    public function index(): Response
+    public function index(UserRepository $userRepository): Response
     {
-        return $this->render('home/index.html.twig', []);
+        $users = $userRepository->findAll();
+
+        return $this->render('home/index.html.twig', [
+            'needAdmin' => count($users) == 0
+        ]);
     }
+
     #[Route('/contact', name: 'app_contact')]
     public function contact(): Response
     {

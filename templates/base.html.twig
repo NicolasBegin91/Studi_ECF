@@ -64,6 +64,12 @@
                     <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                 </li>
                 {% endif %}
+
+                {% if needAdmin is defined and needAdmin %}
+                <li class="nav-item {{ app.request.get('_route') == 'app_admin_new' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('app_admin_new') }}">Créer un admin</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

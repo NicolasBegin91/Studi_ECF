@@ -26,11 +26,24 @@ class UserController extends AbstractController
         ]);
     }
 
+
+    #[Route('/createAdmin', name: 'app_admin_new', methods: ['GET', 'POST'])]
+    public function createAdmin(UserRepository $userRepository, Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $users = $userRepository->findAll();
+        if (count($users) == 0) {
+            $user = new User();
+            return $this->edit($request, $user, $entityManager, $userPasswordHasher, true);
+        } else {
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        }
+    }
+
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        return $this->edit($request, $user, $entityManager, $userPasswordHasher);
+        return $this->edit($request, $user, $entityManager, $userPasswordHasher,);
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
@@ -43,9 +56,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, bool $needAdmin = false): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+        if (!$needAdmin)
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
         $newUser = $user->getId() <= 0;
         $form = $this->createForm(UserType::class, $user, [
             'passwordRequired' => $newUser,
@@ -54,6 +68,9 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($newUser) {
+                if ($needAdmin)
+                    $user->setRoles(['ROLE_ADMIN']);
+
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
@@ -88,7 +105,10 @@ class UserController extends AbstractController
                 $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            if ($needAdmin)
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            else
+                return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('helpers/global/_edit.html.twig', [
