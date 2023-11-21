@@ -22,7 +22,6 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig', []);
     }
-    #[Route('/contact', name: 'app_contact')]
     public function contact(): Response
     {
         return $this->render('home/contact_horaires.html.twig', []);

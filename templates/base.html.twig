@@ -46,12 +46,12 @@
 
                 {% if app.user %}
 
-                {# Je suis un admin / Désactivation temporaire TODO #}
-                {# {% if app.user and app.user.roles and 'ROLE_ADMIN' in app.user.roles %}  #}
+                {# Je suis un admin #}
+                {% if app.user and app.user.roles and 'ROLE_ADMIN' in app.user.roles %} 
                 <li class="nav-item {{ 'app_user' in app.request.get('_route') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ path('app_user_index') }}">Liste des membres</a>
                 </li>
-                {# {% endif %} #}
+                {% endif %}
                 {# Fin Je suis un admin #}
 
                 <li class="nav-item">
@@ -62,6 +62,11 @@
 
                 <li class="nav-item {{ app.request.get('_route') == 'app_login' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                </li>
+
+                {# Ajout temporaire #}
+                <li class="nav-item {{ 'app_user' in app.request.get('_route') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('app_user_index') }}">Liste des membres</a>
                 </li>
                 {% endif %}
             </ul>
