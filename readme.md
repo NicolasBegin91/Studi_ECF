@@ -4,7 +4,7 @@
 
 Les applications et outils utilisés pour le développement de cette application sont listés ici avec leur lien de téléchargement ou la ligne de commande à effectuer :
 
-- Visual Studio Code. [Peut se télécharger ici]([https://](https://code.visualstudio.com/download))
+- Visual Studio Code. [Peut se télécharger ici](https://code.visualstudio.com/download)
 - Scoop
 
   ``` PS
