@@ -28,21 +28,21 @@
                     <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
                 </li>
                 
-                <li class="nav-item {{ 'app_service' in app.request.get('_route') ? 'active' : '' }}">
+                {# <li class="nav-item {{ 'app_service' in app.request.get('_route') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ path('app_service_index') }}">Services</a>
-                </li>
+                </li> #}
                 
-                <li class="nav-item {{ 'app_vehicule' in app.request.get('_route') ? 'active' : '' }}">
+                {# <li class="nav-item {{ 'app_vehicule' in app.request.get('_route') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ path('app_vehicule_index') }}">Vehicules</a>
-                </li>
+                </li> #}
                 
                 <li class="nav-item {{ 'app_contact' in app.request.get('_route') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ path('app_contact') }}">Contact & Horaires</a>
                 </li>
                 
-                <li class="nav-item {{ 'app_avis' in app.request.get('_route') ? 'active' : '' }}">
+                {# <li class="nav-item {{ 'app_avis' in app.request.get('_route') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ path('app_avis_index') }}">Avis</a>
-                </li>
+                </li> #}
 
                 {% if app.user %}
 
