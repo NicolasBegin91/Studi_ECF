@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\VehiculeRepository;
 
-#[Route('/')]
 class HomeController extends AbstractController
 {
     /**
