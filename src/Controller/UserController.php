@@ -20,7 +20,7 @@ class UserController extends AbstractController
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -36,7 +36,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -103,7 +103,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
 
             //Suppression de l'image utilisateur

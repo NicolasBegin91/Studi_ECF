@@ -14,7 +14,12 @@
             {% set count = count + 1%}
                         {% endif %}
         {% endfor %}
+        {% if count > 0 %}
         {% set note = moyenne / count %}
+        {% else %}
+        {% set note = 0 %}
+        {% endif %}
+
             <h5 class="text-center mb-4">Note moyenne : {{ note|number_format(2) }}</h5>
             <div class="d-flex justify-content-center">
                 <button onclick="location.href='{{ path('app_avis_new') }}'" class="btn mb-4 ">{{ 'Avis_Create_New'|trans }}</button>
